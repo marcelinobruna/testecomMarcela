@@ -183,31 +183,33 @@
 	SELECT * FROM sensoresTotaisAtivos;
 
 	-- kpi Alertas Críticos 
-	CREATE VIEW alertasCriticos AS
-	SELECT 
-		s.codigoRastreio AS sensorAlerta,
-		CASE 
-			WHEN c.temperatura > 5 OR c.temperatura < -4 THEN 'Temperatura'
-			WHEN c.umidade > 95 OR c.umidade < 60 THEN 'Umidade'
-		END AS tipoAlerta,
-		COUNT(*) AS totalAlertas
-	FROM captura c
-	INNER JOIN sensor s ON s.idSensor = c.fkSensor
-	INNER JOIN transporte t ON t.fkSensor = s.idSensor
-	WHERE t.fkEmpresa = (
-		SELECT idEmpresa FROM empresa WHERE codigo_ativacao = 'ACY22'
-	)
-	AND (
-		c.temperatura > 5 OR c.temperatura < -4
-		OR c.umidade > 95 OR c.umidade < 60
-	)
-	GROUP BY 
-		s.codigoRastreio,
-		CASE 
-			WHEN c.temperatura > 5 OR c.temperatura < -4 THEN 'Temperatura'
-			WHEN c.umidade > 95 OR c.umidade < 60 THEN 'Umidade'
-		END;
-
+CREATE VIEW alertasCriticos AS
+SELECT 
+    s.codigoRastreio AS sensorAlerta,
+    CASE 
+        WHEN c.temperatura > 5 OR c.temperatura < -5 THEN 'Temperatura'
+        WHEN c.umidade > 95 OR c.umidade < 60 THEN 'Umidade'
+    END AS tipoAlerta,
+    1 AS totalAlertas
+FROM captura c
+INNER JOIN sensor s ON s.idSensor = c.fkSensor
+INNER JOIN transporte t ON t.fkSensor = s.idSensor
+WHERE t.fkEmpresa = (
+    SELECT idEmpresa FROM empresa WHERE codigo_ativacao = 'ACY22'
+)
+AND (
+    c.temperatura > 5 OR c.temperatura < -5
+    OR c.umidade > 95 OR c.umidade < 60
+)
+AND c.dtCaptura = (
+    SELECT MAX(ce.dtCaptura) FROM captura ce WHERE ce.fkSensor = c.fkSensor
+)
+GROUP BY 
+    s.codigoRastreio,
+    CASE 
+        WHEN c.temperatura > 5 OR c.temperatura < -5 THEN 'Temperatura'
+        WHEN c.umidade > 95 OR c.umidade < 60 THEN 'Umidade'
+    END;
 	SELECT * FROM alertasCriticos;
 
 	-- kpi Maior Mediana de Temperatura
@@ -289,15 +291,24 @@ ORDER BY data_captura;
 	SELECT * FROM graficoTemPSensor1;
 	 
 	/* maior mediana da umidade em %*/
-	CREATE VIEW maiorMedianaUmidade AS SELECT 
-	c.fkSensor AS idSensor,
-	s.codigoRastreio,
-	MAX(c.umidade) AS maior_umidade
-	FROM captura c
-	JOIN sensor s ON c.fkSensor = s.idSensor
-	WHERE c.umidade IS NOT NULL
-	GROUP BY c.fkSensor, s.codigoRastreio
-	ORDER BY maior_umidade DESC;
+	DROP VIEW maiorMedianaUmidade;
+
+CREATE VIEW maiorMedianaUmidade AS SELECT 
+    c.fkSensor AS idSensor,
+    s.codigoRastreio,
+    MAX(c.umidade) AS maior_umidade,
+    (
+        SELECT DATE(c2.dtCaptura) 
+        FROM captura c2 
+        WHERE c2.fkSensor = c.fkSensor 
+        AND c2.umidade = MAX(c.umidade)
+        LIMIT 1
+    ) AS dtMaiorUmidade
+FROM captura c
+JOIN sensor s ON c.fkSensor = s.idSensor
+WHERE c.umidade IS NOT NULL
+GROUP BY c.fkSensor, s.codigoRastreio
+ORDER BY maior_umidade DESC;
 
 	SELECT * FROM maiorMedianaUmidade;
 
@@ -358,8 +369,3 @@ ORDER BY data_captura;
 	ORDER BY c.idCaptura ASC;
 
 	SELECT * FROM garficoTempVisaoGeral;
-
-
-
-		
-		

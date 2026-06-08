@@ -233,22 +233,22 @@
 
 <script>
     window.onload = function () {
-    sensoresTotaisAtivos();
-    alertasCriticos();
-    maiorTempMediana();
-    maiorUmidadeMediana();
-    graficoTempGeral();
-    graficoUmidadeGeral();
-
-    setInterval(function () {
         sensoresTotaisAtivos();
         alertasCriticos();
         maiorTempMediana();
         maiorUmidadeMediana();
         graficoTempGeral();
         graficoUmidadeGeral();
-    }, 10000);
-}
+
+        setInterval(function () {
+            sensoresTotaisAtivos();
+            alertasCriticos();
+            maiorTempMediana();
+            maiorUmidadeMediana();
+            graficoTempGeral();
+            graficoUmidadeGeral();
+        }, 10000);
+    }
 
     // KPI: Sensores Totais e Ativos
     function sensoresTotaisAtivos() {
@@ -269,26 +269,29 @@
             .then(function (resposta) {
                 if (resposta.ok) {
                     resposta.json().then(function (dados) {
-                        const total = dados.reduce((soma, item) => soma + item.totalAlertas, 0);
+                        const sensoresUnicos = new Set(dados.map(item => item.sensorAlerta));
+                        const total = sensoresUnicos.size;
                         document.getElementById("kpi-alertas").innerHTML = total;
-
-                        const span = document.getElementById("kpi-change-alertas");
-                        let indice = 0;
-                        span.innerHTML = dados[indice].sensorAlerta + " - " + dados[indice].tipoAlerta;
-                        span.style.color = "red";
-
-                        setInterval(function () {
-                            indice = (indice + 1) % dados.length;
-                            span.innerHTML = dados[indice].sensorAlerta + " - " + dados[indice].tipoAlerta;
-                            span.style.color = "red";
-                        }, 5000);
                     });
                 } else {
                     document.getElementById("kpi-alertas").innerHTML = 0;
-                    document.getElementById("kpi-change-alertas").innerHTML = "Nenhum Sensor";
-                    document.getElementById("kpi-change-alertas").style.color = "#888";
                 }
             }).catch(function (erro) { console.log(erro); });
+        const dadosMock = [
+            { sensorAlerta: 'SEN001', tipoAlerta: 'Temperatura' },
+            { sensorAlerta: 'SEN001', tipoAlerta: 'Umidade' }
+        ];
+
+        const span = document.getElementById("kpi-change-alertas");
+        let indice = 0;
+        span.innerHTML = dadosMock[indice].sensorAlerta + " - " + dadosMock[indice].tipoAlerta;
+        span.style.color = "red";
+
+        setInterval(function () {
+            indice = (indice + 1) % dadosMock.length;
+            span.innerHTML = dadosMock[indice].sensorAlerta + " - " + dadosMock[indice].tipoAlerta;
+            span.style.color = "red";
+        }, 5000);
     }
 
     // KPI: Maior Mediana de Temperatura
@@ -298,8 +301,6 @@
                 if (resposta.ok) {
                     resposta.json().then(function (dados) {
                         document.getElementById("kpi-max").innerHTML = dados[0].medianaTemp + " °C";
-
-                        // Formata a data de ISO para DD/MM/YYYY
                         const dataISO = dados[0].Data_Captura;
                         const data = new Date(dataISO);
                         const dataFormatada = data.toLocaleDateString("pt-BR", { timeZone: "UTC" });
@@ -316,7 +317,15 @@
                 if (resposta.ok) {
                     resposta.json().then(function (dados) {
                         document.getElementById("kpi-max-umi").innerHTML = dados[0].maior_umidade + " %";
-                        document.getElementById("kpi-change-umi").innerHTML = "Sensor " + dados[0].idSensor;
+
+                        const dataISO = dados[0].dtMaiorUmidade;
+                        if (dataISO) {
+                            const data = new Date(dataISO);
+                            const dataFormatada = data.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+                            document.getElementById("kpi-change-umi").innerHTML = dataFormatada;
+                        } else {
+                            document.getElementById("kpi-change-umi").innerHTML = "--/--";
+                        }
                     });
                 }
             }).catch(function (erro) { console.log(erro); });

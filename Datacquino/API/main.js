@@ -26,7 +26,7 @@ const serial = async (
         {
             host: '127.0.0.1',
             user: 'root',
-            password: 'root',
+            password: '32364089',
             database: 'safeControl',
             port: 3306
         }
