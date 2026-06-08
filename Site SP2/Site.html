@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <title>SafeControl | Home</title>
+</head>
+
+<body>
+    <!-- Header com redirecionamento dos botões (anchor points) -->
+    <header class="header">
+        <div class="header-content">
+
+            <a href="#banner">
+                <img class="img_logo" src="logo/Logo_SafeControl_Horizontal.png" alt="Imagem da Logo da SafeControl">
+            </a>
+            
+            <nav>
+                <a href="#quem_somos">Quem Somos</a>
+                <a href="#tecnologia">Tecnologia</a>
+                <a href="#solucao">Solução</a>
+                <a href="#calculadora">Calculadora</a>
+                <a href="./login.html"><button>Acesso Cliente</button></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Hero -->
+    <div class="banner" id="banner">
+        <div class="container">
+            <div class="banner-content">
+                <h1>
+                    Monitore o frescor, <br> proteja seu lucro.
+                </h1>
+                <p>
+                    Evite perdas de até 3% por encolhimento e preserve o brilho vermelho da carne com monitoramento
+                    de temperatura e umidade em tempo real. Preserve a qualidade do produto e garanta conformidade em
+                    toda a operação logistica.
+                </p>
+                <a href="#footer">
+                    <button> ENTRE EM CONTATO</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tag Main para controlar o corpo do HTML (container) -->
+    <main class="container">
+
+        <!-- Card Quem Somos -->
+        <div class="quem-somos" id="quem_somos">
+            <img style="width: 500px;" src="imagens/desenho_Caminhao.PNG" alt="Imagem de um Caminhão">
+            <div class="container-content">
+                <h4>Quem Somos</h4>
+                <h2>Dados confiáveis para operações mais seguras e eficientes.</h2>
+                <h6>Somos uma empresa focada em monitoramento inteligente da cadeia do frio.</h6>
+                <p>
+                    Desenvolvemos soluções IoT que garantem controle total da temperatura e umidade, ajudando empresas a
+                    preservar qualidade, reduzir perdas e otimizar processos logísticos.
+                </p>
+            </div>
+        </div>
+
+        <!-- Cards Tecnologia -->
+        <div class="sessao-cards" id="tecnologia">
+            <div class="card" id="c1">
+                <img class="card_img" src="imagens/image_Açougue.jpeg" alt="Imagem de um açougue">
+
+                <div class="text-Card">
+                    <h3>Monitoramento em tempo real</h3>
+                </div>
+            </div>
+
+            <div class="card" id="c2">
+                <img class="card_img" src="imagens/image_Caminhao.jpeg" alt="Imagem de um caminhão na estrada">
+
+                <div class="text-Card">
+                    <h3>Mais controle, menos perda no transporte</h3>
+                </div>
+            </div>
+
+            <div class="card" id="c3">
+                <img class="card_img" src="imagens/image_carne.jpeg" alt="Imagem de uma mão pegando carne">
+
+                <div class="text-Card">
+                    <h3>Preservação da qualidade do produto</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Solução -->
+        <div class="monitoramento" id="solucao">
+            <div class="container-content" style="width: 460px;">
+                <h4>Nossa solução</h4>
+                <h2>Monitoramento inteligente <br>no transporte de carnes</h2>
+                <p>
+                    Nossos sensores IoT acompanham em tempo real as condições de temperatura e umidade durante o
+                    transporte.
+                    <br>Os dados são em um dashboard com alertas e análises, permitindo agir rapidamente para
+                    evitar perdas, manter o padrão de qualidade e garantir a integridade da carga.
+                </p>
+
+                <button><a href="#footer">ENTRE EM CONTATO</a></button>
+            </div>
+
+            <img style="width: 600px;" src="imagens/desenho_Monitoramento.PNG"
+                alt="Imagem de um celular realizando um monitoriamento">
+        </div>
+
+        <!-- Card Calculadora -->
+        <div class="calculadora" id="calculadora">
+            <div class="container-content" style=" width: 40%; color: white;">
+                <h4 style="color: white;">Nossa calculadora</h4>
+                <h1>Simulador <br> Financeiro da SafeControl</h1>
+                <p>
+                    Nossa calculadora financeira revela o impacto oculto do transporte inadequado na
+                    sua operação.
+                    <br><br>
+                    Com base em dados reais como tempo fora da faixa ideal, variações ambientais e volume transportado,
+                    ela estima quanto da sua carga foi comprometido — e, mais importante, quanto dinheiro foi perdido
+                    nesse processo.
+                </p>
+            </div>
+
+            <div class="formulario">
+                <div class="formulario-primeiro">
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o tamanho da carga?
+                        </h6>
+                        <select id="tam_carga">
+                            <option value="P">Carga P (2 - 4 toneladas) </option>
+                            <option value="M">Carga M 6 - 12 toneladas </option>
+                            <option value="G">Carga G (até 30 toneladas) </option>
+
+                        </select>
+                    </div>
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o peso da carga
+                            (kg):</h6>
+                        <input type="text" id="ipt_peso">
+                    </div>
+                </div>
+
+                <div class="formulario-segundo">
+                    <div style="width: 100%;">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o tempo do
+                            transporte desta carga (em horas):</h6>
+                        <input type="text" id="ipt_tempo">
+                    </div>
+                </div>
+
+
+                <div class="formulario-primeiro">
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">
+                            Selecione o tipo de carga:
+                        </h6>
+                        <div class="div-radio">
+
+                            <label class="radio-item">
+                                <input class="input-radio" name="Tipo" type="radio" id="rad_congelada" onclick="tipodecarga()">
+                                <span>Congelada</span>
+                            </label>
+                            
+                            <label class="radio-item">
+                                <input class="input-radio" name="Tipo" type="radio" id="rad_resfriada" onclick="tipodecarga()">
+                                <span>Resfriada</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">
+                            Temperatura do ambiente de transporte:
+                        </h6>
+
+                        <select id="sel_temp">
+                            <option value="">Selecione o tipo de carga primeiro</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <button style="width: 100%;" onclick="analisar()">Calcular
+                </button>
+
+
+                <div class="card-Resultado">
+                    <div class="res" id="msg_Res">
+                        <ul>
+
+                        </ul>
+                    </div>
+
+                    <div class="res" id="msg_Res2">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="contato">
+                <img style="width: 250px;" src="logo/Logo_SafeControl_Vertical.png" alt="Imagem da Logo da SafeControl">
+
+                <div class="tipos-Contato">
+                    <h2>Entre em Contato</h2>
+
+                    <ul>
+                        <li>(11) 99999-9999</li>
+                        <li>(11) 99999-9999</li>
+                        <li>contato@safeControl.com</li>
+                    </ul>
+                </div>
+
+                <div class="tipos-Redes">
+                    <h2>Siga nossas Redes!</h2>
+
+                    <ul>
+                        <li><a href="#">Git Hub</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 11px;">SafeControl - Sensores Automatizados ©2026 Todos os Direitos Reservados</p>
+    </footer>
+</body>
+
+<script>
+
+    function tipodecarga() {
+
+        sel_temp.innerHTML = "";
+
+        if (rad_congelada.checked) {
+            sel_temp.innerHTML = `
+            <option value="">Selecione a temperatura</option>
+            <option value="c1">-18 a -12</option>
+            <option value="c2">-11 a -6</option>
+            <option value="c3">-5 a -1</option>
+            <option value="c4">acima de 0</option>
+        `;
+        }
+        else if (rad_resfriada.checked) {
+            sel_temp.innerHTML = `
+            <option value="">Selecione a temperatura</option>
+            <option value="r1">0 a 4</option>
+            <option value="r2">5 a 7</option>
+            <option value="r3">acima de 7</option>
+        `;
+        }
+    }
+    function analisar() {
+        var tamanho = tam_carga.value;
+        var tempo = Number(ipt_tempo.value);
+        let peso = Number(ipt_peso.value);
+        var congelada = rad_congelada.checked;
+        var resfriada = rad_resfriada.checked;
+        var preco_kg = 22.53;
+        var perda_padrao = 0.02;
+        var faixa = sel_temp.value;
+        var perda_hora = 0;
+        var tipodecarga = '';
+        var risco = '';
+
+
+
+        let ax_erros = ''
+
+        if (tamanho == 'P' && (peso < 2000 || peso > 4000)) {
+            ax_erros += " Carga P deve estar entre 2000kg e 4000kg."
+        }
+        if (tamanho == 'M' && (peso < 6000 || peso > 12000)) {
+            ax_erros += " Carga M deve estar entre 6000kg e 12000kg."
+        }
+        if (tamanho == 'G' && (peso < 12001 || peso > 30000)) {
+            ax_erros += " Carga G deve estar entre 12001kg e 30000kg.";
+        }
+        if (tempo == "" || tempo <= 0) {
+            ax_erros += ' Para usar o programa insira algum valor válido no campo de tempo de transporte!'
+        }
+        if (ax_erros != '') {
+            msg_Res.innerHTML = `${ax_erros}`;
+            msg_Res.style.color = "red";
+
+        } else {
+            if (faixa == "c1" || faixa == "r1") {
+                perda_hora = 0.00;
+                risco = 'padrão'
+            }
+            else if (faixa == "c2" || faixa == "r2") {
+                perda_hora = 0.02;
+                risco = 'leve'
+            }
+            else if (faixa == "c3") {
+                perda_hora = 0.04;
+                risco = 'moderado'
+            }
+            else if (faixa == "c4" || faixa == "r3") {
+                perda_hora = 0.06;
+                risco = 'altissimo'
+            }
+
+            if (congelada) {
+                tipodecarga = 'congelada';
+            } else if (resfriada) {
+                tipodecarga = 'resfriada';
+            }
+
+
+
+
+            var perda_base = peso * perda_padrao;
+            var perda_total = perda_base + (tempo * perda_hora * peso);
+            var prejuizo = perda_total * preco_kg;
+            var investimento = peso * preco_kg;
+
+            var prejuizoFormatado = prejuizo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            var investimentoFormatado = investimento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            var precoFormatado = preco_kg.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            var perdaFormatada = perda_total.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+
+            msg_Res.innerHTML = `
+            <p>
+            Com base nas informações fornecidas — incluindo a carga ser ${tipodecarga}, 
+            o tamanho da carga ${tamanho}, o tempo de transporte de 
+            ${tempo} horas e risco ${risco} — foi identificado impacto na conservação.
+            </p>
+
+            <p>
+            Perda estimada: ${perdaFormatada} kg <br>
+            Valor do kg: ${precoFormatado}<br>
+            Investimento: ${investimentoFormatado}<br>
+            Prejuízo: ${prejuizoFormatado} <br> <br> 
+            <b>Powered by:</b> Anvisa , Mapa, Marfrig
+            </p>
+            `;
+
+            msg_Res.style.color = "white";
+        }
+
+
+
+    }
+
+</script>
+
+</html>

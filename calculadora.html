@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculadora financeira</title>
+</head>
+
+<body>
+    <h1>calculadora financeira </h1>
+    Qual o tamanho da carga ?
+    <select id="tam_carga">
+        <option value="P">Carga P (2 - 4 toneladas) </option>
+        <option value="M">Carga M 6 - 12 toneladas </option>
+        <option value="G">Carga G (até 30 toneladas) </option>
+
+    </select> <br><br>
+
+    Qual o peso da carga (em kg):
+    <input type="number" id="ipt_peso">
+    <br><br>
+
+    Qual o tempo do transporte desta carga ( em horas) <input type="number" id="ipt_tempo"> <br> <br>
+    Tipo de carga <br>
+    <input name="Tipo" type="radio" id="rad_congelada" onclick="tipodecarga() "> Congelada
+    <input name="Tipo" type="radio" id="rad_resfriada"  onclick="tipodecarga() "> Resfriada <br>
+
+
+    Faixa de temperatura do ambiente de transporte : <br>
+    <select id="sel_temp">
+        <option value="">Selecione o tipo de carga primeiro</option>
+    </select>
+
+    <br><br>
+
+
+    <button onclick="analisar()">calcular despesa </button>
+
+    <div id="msg"></div>
+</body>
+
+<script>
+
+function tipodecarga(){
+    
+    sel_temp.innerHTML = "";
+
+    if (rad_congelada.checked) {
+        sel_temp.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="c1">-18 a -12</option>
+            <option value="c2">-11 a -6</option>
+            <option value="c3">-5 a -1</option>
+            <option value="c4">acima de 0</option>
+        `;
+    } 
+    else if (rad_resfriada.checked) {
+        sel_temp.innerHTML = `
+            <option value="">Selecione</option>
+            <option value="r1">0 a 4</option>
+            <option value="r2">5 a 7</option>
+            <option value="r3">acima de 7</option>
+        `;
+    }
+}
+    function analisar() {
+        var tamanho = tam_carga.value;
+        var tempo = Number(ipt_tempo.value);
+        let peso = Number(ipt_peso.value);
+        var congelada = rad_congelada.checked;
+        var resfriada = rad_resfriada.checked;
+        var preco_kg = 22.53;
+        var perda_padrao = 0.02;
+        var faixa = sel_temp.value;
+        var perda_hora = 0;
+        var tipodecarga = '';
+        var risco = '';
+
+        
+        let ax_erros = ''
+
+        if (tamanho == 'P' && (peso < 2000 || peso > 4000)) {
+            ax_erros += " Carga P deve estar entre 2000kg e 4000kg"
+        }
+         if (tamanho == 'M' && (peso < 6000 || peso > 12000)) {
+            ax_erros += " Carga M deve estar entre 6000kg e 12000kg"
+        }
+         if (tamanho == 'G' && (peso < 12001 || peso > 30000)) {
+             ax_erros += "Carga G deve estar entre 12001kg e 30000kg";
+        }
+         if (tempo == "" || tempo <= 0) {
+
+            ax_erros += ' Para usar o programa insira algum valor  valido no campo de tempo de transporte  !'
+        }
+        if (ax_erros != '') {
+            alert(ax_erros)
+        }else {
+
+         
+
+             if (faixa == "c1" || faixa == "r1") {
+            perda_hora = 0.00;
+            risco = 'padrão'
+        } 
+        else if (faixa == "c2" || faixa == "r2") {
+            perda_hora = 0.02;
+            risco = 'leve'
+        } 
+        else if (faixa == "c3") {
+            perda_hora = 0.04;
+            risco = 'moderado'
+        } 
+        else if (faixa == "c4" || faixa == "r3") {
+            perda_hora = 0.06;
+            risco = 'altissimo'
+        }
+
+           if (congelada){
+            tipodecarga = 'congelada';
+           } else if(resfriada){
+            tipodecarga='resfriada';
+           }
+
+           
+
+        var perda_base = peso * perda_padrao;
+        var perda_total = perda_base + (tempo * perda_hora * peso);
+        var prejuizo = perda_total * preco_kg;
+        var investimento = peso *preco_kg;
+
+        msg.innerHTML=`Com base nas informações fornecidas — incluindo a carga ser ${tipodecarga}, o tamanho da carga ser ${tamanho}, o tempo de 
+        transporte ser ${tempo} horas e a faixa de temperatura apontar para um risco ${risco}— foi identificado que a variação térmica durante o trajeto pode impactar diretamente
+         na conservação dos produtos.<br> <br>
+
+Devido a essas condições, estima-se uma perda aproximada de ${perda_total} kg da carga total transportada. Considerando o valor médio
+ de R$ ${preco_kg.toFixed(2)} por kg, e o total investido nesta carga R$ ${investimento.toFixed(2)}  isso representa um prejuízo estimado de R$ ${prejuizo.toFixed(2)}.
+`
+        
+
+      
+        
+        }
+
+
+        
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+margin: 0;
+padding: 0;    
+}
+
+.fundo{
+
+    background-image: url(imagens/BG_LoginCadastro.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    height: 900px;
+    width: 100%;
+
+}
+
+.box_grande{
+    width: 800px;
+    height: 820px;
+
+    background-color: rgba(255, 255, 255, 0.762);
+
+    border-radius: 40px;
+
+    position: absolute;
+
+    margin-left: 28%;
+    margin-top: 2%;
+
+    overflow: auto;
+    scrollbar-width: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.header{
+    background-color: #1A3868;
+    height: 80px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-bottom: 2px solid rgba(0, 0, 0, 0.486);
+}
+
+.img-logo{
+    height: 50px;
+}
+
+a{
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+}
+
+.texto-botao{
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Inter;
+    color: rgb(0, 132, 255);
+    text-decoration: none;
+}
+
+.texto-botao:hover{
+    color: white;
+}
+
+.logo{
+    height: auto;
+    width: 300px;
+    text-align: center;
+    margin-right: 50px;
+}
+
+
+button:hover{
+    border: 1px solid #ffffff;
+    transform: scale(1.1);
+
+}
+
+textarea[type="text"] {
+    position: absolute;
+    padding-top: 15px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    font-size: 16px;
+    font-family: inter sans-serif;
+    border-radius: 40px;
+    width: 600px;
+    border: solid 1px black;
+
+}
+
+button{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-image: url(imagens/icon_enviar.png);
+    background-color: #1A3868;
+    background-position: center;
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+    border: solid 1px black;
+    margin-bottom: 21px;
+    margin-left: 540px;
+    z-index: 10;
+    position: absolute;
+    transition: 0.3s;}
+
+.bob{
+    height: 700px;
+    width: 750px;
+    margin-bottom: 80px;
+    margin-left: 15px;
+
+    overflow: auto;
+    scrollbar-width: Bob ia none;
+    }
+
+    .agentebob{ 
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-image: url(imagens/bob.png);
+    background-color: #1A3868;
+    background-position: center;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
+    margin-left: 37px;
+    z-index: 10;
+    position: absolute;}
+
+    .resposta{
+    font-size: 20px;
+    font-family: inter sans-serif;
+    }
+
+    .ia{
+        height: 30px;
+        width: 100px;
+        position: absolute;
+        margin-bottom: 780px;
+        font-size: 25px;
+    }
+

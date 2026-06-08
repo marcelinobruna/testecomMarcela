@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Graphics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <h1>Graphics</h1>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <canvas id="sensorAnalogico"></canvas>
+        </div>
+        <div style="width: 50%;">
+            <canvas id="sensorDigital"></canvas>
+        </div>
+    </div>
+
+    <script>
+
+        var sensorAnalogico = new Chart(document.getElementById('sensorAnalogico'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    { label: 'Congelado Ideal', data: [] },
+                    { label: 'Resfriado Ideal', data: [] }
+                   
+                ]
+            }
+        });
+
+        setInterval(() => {
+            obterTemperaturas();
+        }, 1000);
+
+        var sensorDigital = new Chart(document.getElementById('sensorDigital'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    { label: 'Congelado Ideal', data: [] },
+                    { label: 'Resfriado Ideal', data: [] }
+                  
+                ]
+            }
+        });
+
+        function atualizarGrafico(grafico, data) {
+            const labels = data.congeladoIdeal.map((_, i) => i);
+
+            grafico.data.labels = labels;
+            grafico.data.datasets[0].data = data.congeladoIdeal;
+            grafico.data.datasets[1].data = data.resfriadoIdeal;
+          
+
+            grafico.update();
+        }
+
+        function obterTemperaturas() {
+            fetch('http://localhost:3300/sensores/temperaturas')
+                .then(res => res.json())
+                .then(data => atualizarGrafico(sensorAnalogico, data));
+        }
+
+        function obterUmidades() {
+            fetch('http://localhost:3300/sensores/umidades')
+                .then(res => res.json())
+                .then(data => atualizarGrafico(sensorDigital, data));
+        }
+
+        setInterval(() => {
+            obterUmidades();
+        }, 1000);
+
+    </script>
+</body>
+
+</html>

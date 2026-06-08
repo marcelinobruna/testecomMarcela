@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BobIA</title>
+    <link rel="stylesheet" href="estrutura.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<!-- 
+        
+    -->
+    <div class="header">
+        <div class="logo">
+          <img class="img-logo" src="imagens/Logo_SafeControl_Horizontal.png" alt="Imagem da Logo da Safe Control">
+        </div>  
+    </div>
+    <div class="fundo">
+        <div class="box_grande">
+            <div class="ia"><i>Bob ia</i></div>
+            <div class="bob">
+                <div class="agentebob"></div>
+                <div id="resposta" class="bob, resposta" style="margin-top: 20px; margin-left: 100px; "></div>
+            </div>
+            
+            <button onclick="gerarResposta()"></button>
+           <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+            
+          
+        </div>
+    </div>
+
+   
+
+    <script>
+        
+        async function gerarResposta() {
+            const pergunta = document.getElementById('pergunta').value;
+
+            const response = await fetch('/perguntar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pergunta })
+            });
+
+            const data = await response.json();
+
+            resposta.style.display = 'block';
+            document.getElementById('resposta').innerText = data.resultado;
+        }
+
+    </script>
+    
+</body>
+</html>

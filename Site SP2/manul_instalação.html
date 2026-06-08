@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de instalção </title>
+    <link rel="stylesheet" href="CSS/manual.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img class="img-logo" src="./logo/Logo_SafeControl_Horizontal.png" alt="Imagem da Logo da Safe Control">
+        </div>
+        
+        <a class="link-voltar, bot_voltar" href="./Site.html"><button class="voltar">Voltar</button></a>
+    </div>
+    <div class="fundo">
+    <div class="box_grande">
+            <div class="txt">
+                <h1>Manual de instalação</h1>
+                <h2>Arquitetura computacional</h2>
+                <div class="objetos">
+                    <div class="sensor"></div>
+                    <div class="protoboard"></div>
+                    <div class="jumpers"></div>
+                    <div class="arduino"></div>
+                    <div class="usb"></div>
+                </div>
+                <p style="margin-left:3.5%;">Sensor DHT11</p>  <p style="margin-left:22%;">Protoboard</p>   
+                <p style="margin-left:42.6%;">Jumpers</p>  <p style="margin-left:57.5%;">Arduino UNO R3</p>  
+                <p style="margin-left:78%;">Cabo USB</p>
+                <br><br><br>
+
+                <h3>Passo 1</h2> <p>Insira o sensor DHT11 na protoboard </p>
+
+                <div class="passo1" style="background-image: url(imagens/Passo1.png);"></div>
+                
+                <h3>Passo 2</h3> <p>No Arduino UNO R3, insira a ponta de um dos jumpers em 5v e a outra ponta, insira na protoboard, no primeiro pino a esquerda do sensor. Com outro jumper, no Arduino UNO R3, insira uma das pontas no GND e a outra ponta na protoboard, no segundo pino a esquerda do sensor. Com um ultimo jumper, no Arduino UNO R3, insira uma das pontas na porta A0 e a outra na protoboard, no primeiro pino a direita do sensor.</p>
+
+                <div class="passo1" style="margin-top: 140px; background-image: url(imagens/passo2.png);" ></div>
+
+                <h3>Passo 3</h3> <p>Instale o programa Node.js na máquina =><a href="https://nodejs.org/pt-br/download">Node.js</a></p>
+
+                <div class="passo1" style="margin-top: 70px; background-image: url(imagens/Node.js_logo.svg);"></div>
+
+                <h3>Passo 4</h3> <p>Clone o repositório do Github =><a href="https://github.com/Safe-Control-Sptech/safeControl">Github</a></p>
+
+                 <div class="passo1" style="margin-top: 70px; background-image: url(imagens/GitHub.jpg);"></div>
+
+                <h3>Passo5</h3> <p>Insira o USB da placa Arduino UNO R3 no computador e de npm start no terminal da pasta clonada</p>
+
+                 <div class="passo1" style=" height: 310px; margin-top: 70px; background-image: url(imagens/passo3.png);"></div>
+
+            </div>
+
+    </div>
+    </div>
+</body>
+</html>
