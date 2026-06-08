@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/Simbolo_SafeControl.png" type="image/x-icon">
+
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="icon" href="./assets/logo/Logo_SafeControl.jpg">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <title>Safe Control | Home</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+
+            <a href="#banner">
+                <img class="img_logo" src="./assets/logo/Logo_SafeControl_Horizontal.png"
+                    alt="Imagem da Logo da SafeControl">
+            </a>
+
+            <nav>
+                <a href="#quem_somos">Quem Somos</a>
+                <a href="#tecnologia">Tecnologia</a>
+                <a href="#solucao">Solução</a>
+                <a href="#calculadora">Calculadora</a>
+                <a href="faq.html">FAQ</a>
+                <a href="login.html"><button>Acesso Cliente</button></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Hero -->
+    <div class="banner" id="banner">
+        <div class="container">
+            <div class="banner-content">
+                <h1>
+                    Monitore o frescor, <br> proteja seu lucro.
+                </h1>
+
+                <p>
+                    Evite perdas de até 3% por encolhimento e preserve o brilho vermelho da carne com monitoramento
+                    de temperatura e umidade em tempo real. Preserve a qualidade do produto e garanta conformidade em
+                    toda a operação logistica.
+                </p>
+
+                <a href="#footer">
+                    <button> ENTRE EM CONTATO</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tag Main para controlar o corpo do HTML (container) -->
+    <main class="container-main">
+
+        <!-- Card Quem Somos -->
+        <div class="quem-somos" id="quem_somos">
+            <img style="width: 500px;" src="./assets/imagens/desenho_Caminhao.PNG" alt="Imagem de um Caminhão">
+            <div class="container-content">
+                <h4>Quem Somos</h4>
+                <h2>Dados confiáveis para operações mais seguras e eficientes.</h2>
+                <h6>Somos uma empresa focada em monitoramento inteligente da cadeia do frio.</h6>
+                <p>
+                    Desenvolvemos soluções IoT que garantem controle total da temperatura e umidade, ajudando empresas a
+                    preservar qualidade, reduzir perdas e otimizar processos logísticos.
+                </p>
+            </div>
+        </div>
+
+        <!-- Cards Tecnologia -->
+        <div class="sessao-cards" id="tecnologia">
+            <div class="card" id="c1">
+                <img class="card_img" src="./assets/imagens/image_Açougue.jpeg" alt="Imagem de um açougue">
+
+                <div class="text-Card">
+                    <h3>Monitoramento em tempo real</h3>
+                </div>
+            </div>
+
+            <div class="card" id="c2">
+                <img class="card_img" src="./assets/imagens/image_Caminhao.jpeg" alt="Imagem de um caminhão na estrada">
+
+                <div class="text-Card">
+                    <h3>Mais controle, menos perda no transporte</h3>
+                </div>
+            </div>
+
+            <div class="card" id="c3">
+                <img class="card_img" src="./assets/imagens/image_carne.jpeg" alt="Imagem de uma mão pegando carne">
+
+                <div class="text-Card">
+                    <h3>Preservação da qualidade do produto</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Solução -->
+        <div class="monitoramento" id="solucao">
+            <div class="container-content" style="width: 460px;">
+                <h4>Nossa solução</h4>
+                <h2>Monitoramento inteligente <br>no transporte de carnes</h2>
+                <p>
+                    Nossos sensores IoT acompanham em tempo real as condições de temperatura e umidade durante o
+                    transporte.
+                    <br>Os dados são em um dashboard com alertas e análises, permitindo agir rapidamente para
+                    evitar perdas, manter o padrão de qualidade e garantir a integridade da carga.
+                </p>
+                <div class="btn-solucao">
+
+                    <button>ENTRE EM CONTATO</button>
+                    <button class="botao" onclick="window.location.href='./manul_instalação.html'">MANUAL DE INSTALAÇÃO</button>
+                </div>
+            </div>
+
+            <img style="width: 600px;" src="./assets/imagens/desenho_Monitoramento.PNG"
+                alt="Imagem de um celular realizando um monitoriamento">
+        </div>
+
+        <!-- Card Calculadora -->
+        <div class="calculadora" id="calculadora">
+            <div class="container-content" style=" width: 40%; color: white;">
+                <h4 style="color: white;">Nossa calculadora</h4>
+                <h1>Simulador <br> Financeiro da SafeControl</h1>
+                <p>
+                    Nossa calculadora financeira revela o impacto oculto do transporte inadequado na
+                    sua operação.
+                    <br><br>
+                    Com base em dados reais como tempo fora da faixa ideal, variações ambientais e volume transportado,
+                    ela estima quanto da sua carga foi comprometido — e, mais importante, quanto dinheiro foi perdido
+                    nesse processo.
+                </p>
+            </div>
+
+            <div class="formulario">
+                <div class="formulario-primeiro">
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o tamanho da carga?
+                        </h6>
+                        <select id="tam_carga">
+                            <option value="P">Carga P (2 - 4 toneladas) </option>
+                            <option value="M">Carga M 6 - 12 toneladas </option>
+                            <option value="G">Carga G (até 30 toneladas) </option>
+
+                        </select>
+                    </div>
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o peso da carga
+                            (kg):</h6>
+                        <input type="text" id="ipt_peso">
+                    </div>
+                </div>
+
+                <div class="formulario-segundo">
+                    <div style="width: 100%;">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">Qual o tempo do
+                            transporte desta carga (em horas):</h6>
+                        <input type="text" id="ipt_tempo">
+                    </div>
+                </div>
+
+
+                <div class="formulario-primeiro">
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">
+                            Selecione o tipo de carga:
+                        </h6>
+                        <div class="div-radio">
+
+                            <label class="radio-item">
+                                <input class="input-radio" name="Tipo" type="radio" id="rad_congelada"
+                                    onclick="tipodecarga()">
+                                <span>Congelada</span>
+                            </label>
+
+                            <label class="radio-item">
+                                <input class="input-radio" name="Tipo" type="radio" id="rad_resfriada"
+                                    onclick="tipodecarga()">
+                                <span>Resfriada</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="itens">
+                        <h6 style="color: white; padding-bottom: 8px; margin-block-start: 0px;">
+                            Temperatura do ambiente de transporte:
+                        </h6>
+
+                        <select id="sel_temp">
+                            <option value="">Selecione o tipo de carga primeiro</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <button style="width: 100%;" onclick="analisar()">Calcular
+                </button>
+
+
+                <div class="card-Resultado">
+                    <div class="res" id="msg_Res">
+                        <ul>
+
+                        </ul>
+                    </div>
+
+                    <div class="res" id="msg_Res2">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="faq">
+            <h2>Perguntas Frequentes</h2>
+
+            <details>
+                <summary>Como é feita a manutenção e calibração dos sensores da SafeControl?</summary>
+                <p>Para garantir a máxima precisão, nossa equipe realiza vistorias e substituições preventivas programadas nos dispositivos de telemetria, mitigando qualquer risco de falha por desgaste natural.</p>
+            </details>
+
+            <details>
+                <summary>O que acontece se o caminhão passar por uma área sem sinal de internet?</summary>
+                <p>O sistema possui tecnologia de contingência offline. Os dados de temperatura, umidade e localização continuam sendo gravados localmente e são transmitidos de forma automática assim que o sinal for restabelecido.</p>
+            </details>
+
+            <details>
+                <summary>Quem tem autorização para visualizar os dados das minhas cargas?</summary>
+                <p>O acesso ao painel de controle é restrito e protegido por criptografia avançada. O gestor da frota pode definir diferentes níveis de permissão para cada usuário, garantindo que dados sensíveis não sejam expostos.</p>
+            </details>
+
+            <details>
+                <summary>Como o sistema detecta se o sensor for removido ou violado propositalmente?</summary>
+                <p>Nossos equipamentos possuem travas físicas, lacres de segurança e sensores antifraude. Qualquer tentativa de movimentação indevida ou desligamento do hardware dispara um alerta crítico imediato na central.</p>
+            </details>
+            <button onclick="window.location.href='./faq.html'"> Veja mais perguntas</button>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="contato">
+                <img style="width: 250px;" src="./assets/logo/Logo_SafeControl_Vertical.png"
+                    alt="Imagem da Logo da SafeControl">
+
+                <div class="tipos-Contato">
+                    <h2>Entre em Contato</h2>
+
+                    <ul>
+                        <li>(11) 99999-9999</li>
+                        <li>(11) 99999-9999</li>
+                        <li>contato@safeControl.com</li>
+                    </ul>
+                </div>
+
+                <div class="tipos-Redes">
+                    <h2>Siga nossas Redes!</h2>
+
+                    <ul>
+                        <li><a href="#">Git Hub</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 11px;">SafeControl - Sensores Automatizados ©2026 Todos os Direitos Reservados</p>
+    </footer>
+</body>
+</html>

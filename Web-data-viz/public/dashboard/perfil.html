@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/Simbolo_SafeControl.png" type="image/x-icon">
+    <title>SafeControl | Dashboard</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body onload="ativarButtons()">
+    <!-- Menu fixo de navegação -->
+
+    <div class="menu-lateral">
+
+        <a href="./dashboard.html">
+            <img class="img-logo" src="../assets/logo/Logo_SafeControl_Vertical.png" alt="Logo SafeControl">
+        </a>
+
+        <div class="perfil">
+            <h6 style="color: #13131a; font-weight: 700;">Olá, <span id="b_usuario">usuário</span>!</h6>
+        </div>
+
+        <button id="btn-ativo" class="button-menu" onclick="mostrar_visao_geral()">Visão Geral</button>
+
+        <button class="button-menu" onclick="mostrar_sensor()">Sensores</button>
+
+        <button class="button-menu" onclick="mostrar_perfil()">Perfil</button>
+
+        <button class="btn-login" onclick="sair()"> Sair </button>
+    </div>
+
+    <div class="container-main">
+        <!-- Div da página de perfil -->
+        <div id="div_perfil">
+            <div class="container div_texto">
+                <h1>Perfil</h1>
+                <p>Confira os seus dados cadastrados!</p>
+            </div>
+
+            <div class="container card-cliente">
+                <!-- TOPO COM FOTO -->
+                <div class="card-header">
+                    <div class="foto-perfil">
+                        <img src="./imagens/icone_perfil.png" alt="Foto do cliente">
+                    </div>
+                </div>
+
+                <!-- DADOS -->
+                <div class="campo">
+                    <label>Nome Completo</label>
+                    <input type="text" value="Carlos Eduardo Martins">
+                </div>
+
+                <div class="campo">
+                    <label>Email</label>
+                    <input type="email" value="carlos.martins@safecontrol.com">
+                </div>
+
+                <div class="campo">
+                    <label>CPF</label>
+                    <input type="text" value="527.894.163-08">
+                </div>
+
+                <div class="campo">
+                    <label>Telefone</label>
+                    <input type="text" value="(11) 98765-4321">
+                </div>
+
+                <div class="campo">
+                    <label>Empresa</label>
+                    <input type="text" value="SafeControl LTDA">
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="card-footer">
+                    <button class="btn-editar" onclick="habilitarEdicao()">Alterar Dados</button>
+                    <button class="btn-salvar" onclick="salvarEdicao()">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // EXIBIR PÁGINA PRINCIPAL
+    function mostrar_visao_geral() {
+        window.location.href = './dashboard.html';
+    }
+
+    // EXIBIR PÁGINA DE SENSORES
+    function mostrar_sensor() {
+        window.location.href = './sensores.html';
+    }
+
+    // EXIBIR PÁGINA DE PERFIL
+    function mostrar_perfil() {
+        window.location.href = './perfil.html';
+    }
+</script>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeControl | Dashboard</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body onload="ativarButtons()">
+    <!-- Menu fixo de navegação -->
+
+    <div class="menu-lateral">
+
+        <a href="./dashboard.html">
+            <img class="img-logo" src="../assets/logo/Logo_SafeControl_Vertical.png" alt="Logo SafeControl">
+        </a>
+
+        <div class="perfil">
+            <h6 style="color: #13131a; font-weight: 700;">Olá, <span id="b_usuario">usuário</span>!</h6>
+        </div>
+
+        <button id="btn-ativo" class="button-menu" onclick="mostrar_visao_geral()">Visão Geral</button>
+        <button class="button-menu" onclick="mostrar_sensor()">Sensores</button>
+        <button class="button-menu" onclick="mostrar_perfil()">Perfil</button>
+        <button class="btn-login" onclick="sair()"> Sair </button>
+
+    </div>
+
+    <div class="container-main">
+        <!-- Div da visão geral -->
+        <div id="div_visao_geral">
+            <div class="container div_texto">
+                <h1>Visão Geral</h1>
+                <p>Bem-vindo ao painel de gerenciamento.</p>
+            </div>
+
+            <!-- Div das KPIS -->
+            <div class="container div_body">
+                <!-- KPI Alertas -->
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Alertas Críticos</span>
+                        <h2 class="kpi-value" id="kpi-alertas"></h2>
+                        <span class="kpi-change" id="kpi-change-alertas"></span>
+                    </div>
+                </div>
+                <!-- KPI Temp -->
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Maior Mediana de Temperatura</span>
+                        <h2 class="kpi-value" id="kpi-max">-- °C</h2>
+                        <span class="kpi-change" id="kpi-change">00/00</span>
+                    </div>
+                </div>
+                <!-- KPI Umi -->
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Maior Mediana de Umidade</span>
+                        <h2 class="kpi-value" id="kpi-max-umi">--%</h2>
+                        <span class="kpi-change" id="kpi-change-umi">00/00</span>
+                    </div>
+                </div>
+                <!-- KPI Sensores -->
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Sensores Totais</span>
+                        <h2 class="kpi-value" id="kpi-total-sensores">0</h2>
+                        <span class="kpi-change positivo" id="kpi-ativos-sensores">0 Ativos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de navegação entre tabelas -->
+            <div class="container">
+                <div class="agrupar">
+                    <button class="button_dash" id="sensor_temp" onclick="ocultar_umid()"> Sensor 1 - <b>Gráfico
+                            Temperatura</b></button>
+                    <button class="button_dash" id="sensor_umid" onclick="ocultar_temp()"> Sensor 1 - <b>Gráfico
+                            Umidade</b></button>
+                </div>
+
+            </div>
+
+            <!-- Gráfico Temperatura -->
+            <div class="container" id="temperatura">
+                <div class="grafico">
+                    <canvas id="meuGrafico"></canvas>
+                </div>
+
+            </div>
+
+            <!-- Gráfico Umidade -->
+            <div class="container div_chart" id="umidade">
+
+                <div class="grafico_linha">
+                    <canvas id="meuGrafico2"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Div da página dos sensores -->
+        <div id="div_sensores">
+            <div class="container div_texto">
+                <h1>Sensores</h1>
+                <p>Confira com detalhes os seus sensores!</p>
+            </div>
+            <!-- DIV das KPIS -->
+            <div class="container div_body">
+                <!-- KPI Sensor 1 -->
+                <div class="kpi-card">
+                    <div class="kpi-info" id="kpi_sensor_1">
+                        <span class="kpi-title">Escolha o sensor</span>
+                        <h2 class="kpi-value"> Sensor 1</h2>
+                        <span class="kpi-change positivo">Sensor ativo</span>
+                    </div>
+                </div>
+                <!-- KPI Sensor 2 -->
+                <div class="kpi-card">
+                    <div class="kpi-info" id="kpi_sensor_2">
+                        <span class="kpi-title">Escolha o sensor</span>
+                        <h2 class="kpi-value"> Sensor 2</h2>
+                        <span class="kpi-change positivo">Sensor ativo</span>
+                    </div>
+                </div>
+                <!-- KPI Sensor 3 -->
+                <div class="kpi-card negativo">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Escolha o sensor</span>
+                        <h2 class="kpi-value"> Sensor 3</h2>
+                        <span class="kpi-change negativo">Sensor desativado</span>
+                    </div>
+                </div>
+                <!-- KPI Sensor 4 -->
+                <div class="kpi-card negativo">
+                    <div class="kpi-info">
+                        <span class="kpi-title">Escolha o sensor</span>
+                        <h2 class="kpi-value"> Sensor 4</h2>
+                        <span class="kpi-change negativo">Sensor desativado</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Barra de navegação entre tabelas -->
+            <div class="container">
+                <div class="agrupar" id="sensor_1">
+                    <button class="button_dash" id="sensor_temp2" onclick="ocultar_umid2()"> Sensor 1 - <b>Gráfico
+                            Temperatura</b></button>
+                    <button class="button_dash" id="sensor_umid" onclick="ocultar_temp2()"> Sensor 1 - <b>Gráfico
+                            Umidade</b></button>
+                </div>
+                <div class="agrupar" id="sensor_2">
+                    <button class="button_dash" id="sensor_temp" onclick="ocultar_umid2()"> Sensor 2 - <b>Gráfico
+                            Temperatura</b></button>
+                    <button class="button_dash" id="sensor_umid" onclick="ocultar_temp2()"> Sensor 2 - <b>Gráfico
+                            Umidade</b></button>
+                </div>
+            </div>
+            <!-- Gráfico Temperatura -->
+            <div class="container" id="temperatura2">
+                <div class="grafico">
+                    <canvas id="meuGrafico3"></canvas>
+                </div>
+
+            </div>
+            <!-- Gráfico Umidade -->
+            <div class="container div_chart" id="umidade2">
+                <div class="grafico_linha">
+                    <canvas id="meuGrafico4"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Div da página de perfil -->
+        <div id="div_perfil">
+            <div class="container div_texto">
+                <h1>Perfil</h1>
+                <p>Confira os seus dados cadastrados!</p>
+            </div>
+
+            <div class="container card-cliente">
+                <!-- TOPO COM FOTO -->
+                <div class="card-header">
+                    <div class="foto-perfil">
+                        <img src="./imagens/icone_perfil.png" alt="Foto do cliente">
+                    </div>
+                </div>
+
+                <!-- DADOS -->
+                <div class="campo">
+                    <label>Nome Completo</label>
+                    <input type="text" value="Carlos Eduardo Martins">
+                </div>
+
+                <div class="campo">
+                    <label>Email</label>
+                    <input type="email" value="carlos.martins@safecontrol.com">
+                </div>
+
+                <div class="campo">
+                    <label>CPF</label>
+                    <input type="text" value="527.894.163-08">
+                </div>
+
+                <div class="campo">
+                    <label>Telefone</label>
+                    <input type="text" value="(11) 98765-4321">
+                </div>
+
+                <div class="campo">
+                    <label>Empresa</label>
+                    <input type="text" value="SafeControl LTDA">
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="card-footer">
+                    <button class="btn-editar" onclick="habilitarEdicao()">Alterar Dados</button>
+                    <button class="btn-salvar" onclick="salvarEdicao()">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    window.onload = function () {
+    sensoresTotaisAtivos();
+    alertasCriticos();
+    maiorTempMediana();
+    maiorUmidadeMediana();
+    graficoTempGeral();
+    graficoUmidadeGeral();
+
+    setInterval(function () {
+        sensoresTotaisAtivos();
+        alertasCriticos();
+        maiorTempMediana();
+        maiorUmidadeMediana();
+        graficoTempGeral();
+        graficoUmidadeGeral();
+    }, 10000);
+}
+
+    // KPI: Sensores Totais e Ativos
+    function sensoresTotaisAtivos() {
+        fetch("/medidas/sensoresTA")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        document.getElementById("kpi-total-sensores").innerHTML = dados[0].totalSensores;
+                        document.getElementById("kpi-ativos-sensores").innerHTML = dados[0].sensoresAtivos + " Ativos";
+                    });
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+    // KPI: Alertas Críticos
+    function alertasCriticos() {
+        fetch("/medidas/criticoAlertas")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        const total = dados.reduce((soma, item) => soma + item.totalAlertas, 0);
+                        document.getElementById("kpi-alertas").innerHTML = total;
+
+                        const span = document.getElementById("kpi-change-alertas");
+                        let indice = 0;
+                        span.innerHTML = dados[indice].sensorAlerta + " - " + dados[indice].tipoAlerta;
+                        span.style.color = "red";
+
+                        setInterval(function () {
+                            indice = (indice + 1) % dados.length;
+                            span.innerHTML = dados[indice].sensorAlerta + " - " + dados[indice].tipoAlerta;
+                            span.style.color = "red";
+                        }, 5000);
+                    });
+                } else {
+                    document.getElementById("kpi-alertas").innerHTML = 0;
+                    document.getElementById("kpi-change-alertas").innerHTML = "Nenhum Sensor";
+                    document.getElementById("kpi-change-alertas").style.color = "#888";
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+    // KPI: Maior Mediana de Temperatura
+    function maiorTempMediana() {
+        fetch("/medidas/maiorTemperaturaMediana")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        document.getElementById("kpi-max").innerHTML = dados[0].medianaTemp + " °C";
+
+                        // Formata a data de ISO para DD/MM/YYYY
+                        const dataISO = dados[0].Data_Captura;
+                        const data = new Date(dataISO);
+                        const dataFormatada = data.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+                        document.getElementById("kpi-change").innerHTML = dataFormatada;
+                    });
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+    // KPI: Maior Mediana de Umidade
+    function maiorUmidadeMediana() {
+        fetch("/medidas/maiorUmidadeMediana")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        document.getElementById("kpi-max-umi").innerHTML = dados[0].maior_umidade + " %";
+                        document.getElementById("kpi-change-umi").innerHTML = "Sensor " + dados[0].idSensor;
+                    });
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+    // GRÁFICO 1 - Temperatura (visão geral) - dados do banco
+    function graficoTempGeral() {
+        fetch("/medidas/graficoTempGeral")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        const labels = dados.map(d => d.data_captura);
+                        const temps = dados.map(d => d.temperatura_atual);
+
+                        grafico.data.labels = labels;
+                        grafico.data.datasets[0].data = temps;
+                        grafico.update();
+                    });
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+    // GRÁFICO 2 - Umidade (visão geral) - dados do banco
+    function graficoUmidadeGeral() {
+        fetch("/medidas/graficoUmidadeGeral")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (dados) {
+                        const labels = dados.map(d => d.dia);
+                        const umidades = dados.map(d => d.umidade_mediana_aprox);
+
+                        grafico2.data.labels = labels;
+                        grafico2.data.datasets[1].data = umidades;
+                        grafico2.update();
+                    });
+                }
+            }).catch(function (erro) { console.log(erro); });
+    }
+
+
+    // CHAMADAS DOS ELEMENTOS PRESENTES NO CORPO DO HTML E CONFIG DE VARIÁVEIS DAS KPIs
+    const temperatura = document.getElementById("temperatura");
+    const umidade = document.getElementById("umidade");
+
+    const temperatura2 = document.getElementById("temperatura2");
+    const umidade2 = document.getElementById("umidade2");
+
+    const div_sensores = document.getElementById("div_sensores");
+    const div_perfil = document.getElementById("div_perfil");
+    const div_visao_geral = document.getElementById("div_visao_geral");
+    const div_sensor_1 = document.getElementById("sensor_1");
+    const div_sensor_2 = document.getElementById("sensor_2");
+    const div_kpi_1 = document.getElementById("kpi_sensor_1");
+    const div_kpi_2 = document.getElementById("kpi_sensor_2");
+
+    const button_inicial = document.getElementById("sensor_temp")
+    const button_inicial2 = document.getElementById("sensor_temp2")
+    const button_visao_geral = document.getElementById("btn-ativo")
+
+    // CONFIGs DE EXIBIR E OCULTAR OS GRÁFICOS NA DASHBOARD
+    div_sensor_2.style.display = "none";
+
+    umidade.style.display = "none";
+    umidade2.style.display = "none";
+    div_sensores.style.display = "none";
+    div_perfil.style.display = "none";
+
+    button_inicial.focus();
+
+    function mostrar_visao_geral() {
+        div_visao_geral.style.display = "block";
+        div_sensores.style.display = "none";
+        div_perfil.style.display = "none";
+        button_inicial.focus();
+        button_visao_geral.focus();
+
+    }
+
+    function mostrar_sensor() {
+        div_sensores.style.display = "block";
+        div_visao_geral.style.display = "none";
+        div_perfil.style.display = "none";
+        button_inicial2.focus();
+        button_inicial.focus();
+
+
+    }
+
+    function mostrar_perfil() {
+        div_perfil.style.display = "block";
+        div_sensores.style.display = "none";
+        div_visao_geral.style.display = "none";
+    }
+
+    function ocultar_umid() {
+        temperatura.style.display = "flex";
+        umidade.style.display = "none";
+    }
+
+    function ocultar_temp() {
+        umidade.style.display = "flex";
+        temperatura.style.display = "none";
+    }
+
+    function ocultar_umid2() {
+        temperatura2.style.display = "flex";
+        umidade2.style.display = "none";
+    }
+
+    function ocultar_temp2() {
+        umidade2.style.display = "flex";
+        temperatura2.style.display = "none";
+    }
+
+    // CHAMADAS DOS ELEMENTOS PRESENTES NO CORPO DO HTML E CONFIG DE VARIÁVEIS DAS KPIs
+    const kpiAlertas = document.getElementById("kpi-alertas");
+    const kpiMax = document.getElementById("kpi-max");
+    const kpiMax2 = document.getElementById("kpi-max-umi");
+    const kpiChange = document.getElementById("kpi-change");
+    const kpiChange2 = document.getElementById("kpi-change-umi");
+    const kpiChangeAlertas = document.getElementById("kpi-change-alertas");
+
+    // let ultimoMax = 0;
+    // let ultimoMax2 = 0;
+    // let alertaTemp = false;
+    // let alertaUmidade = false;
+    // let totalAlertas = 0;
+
+    // VARIÁVEIS QUE PUXAM O ID DO HTML PARA SEREM REFERENCIADOS NO JS
+    const ctx = document.getElementById('meuGrafico');
+    const ctx2 = document.getElementById('meuGrafico2');
+    const ctx3 = document.getElementById('meuGrafico3');
+    const ctx4 = document.getElementById('meuGrafico4');
+
+    // GRAFICO 1 - TEMPERATURA
+    const grafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['05/05', '06/05', '07/05', '08/05', '09/05', '10/05', '11/05', '12/05', '13/05', '14/05'],
+            datasets: [{
+                label: '  Temperatura Mediana',
+                data: [],
+                borderColor: '#4facfe',
+                backgroundColor: 'rgba(79, 172, 254, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#4facfe',
+                pointBorderWidth: 4,
+                pointBorderColor: '#4facfe'
+            },
+            {
+                label: 'Máxima',
+                data: ['4', '4', '4', '4', '4', '4', '4', '4', '4', '4'],
+                borderColor: 'red',
+                borderWidth: 2,
+                pointRadius: 0
+            },
+            {
+                label: 'Mínima',
+                data: ['-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4'],
+                borderColor: 'blue',
+                borderWidth: 2,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: -8,
+                    max: 8
+                }
+            },
+            animation: {
+                duration: 500,
+                easing: 'easeInOutCubic'
+            }
+        }
+    });
+
+    // CONFIGURAÇÃO DE ATUALIZAÇÃO DO GRAFICO 1
+    // setInterval(() => {
+    //     const novoValor = Number((Math.random() * (6 - (-6)) + (-6)).toFixed());
+
+    //     grafico.data.datasets[0].data.push(novoValor);
+
+    //     // SHIFT DO GRÁFICO
+    //     if (grafico.data.datasets[0].data.length > 10) {
+    //         grafico.data.datasets[0].data.shift();
+    //     }
+    //     // VARIAÇÃO QUE ALTERA A COR DA LINHA CASO TENHA ULTRAPASSADO O MÁXIMO
+    //     if (novoValor > 4) {
+    //         grafico.data.datasets[0].borderColor = '#ff4d4f';
+    //         grafico.data.datasets[0].pointBorderColor = '#ff4d4f';
+    //     } else {
+    //         grafico.data.datasets[0].borderColor = '#4facfe';
+    //         grafico.data.datasets[0].pointBorderColor = '#4facfe';
+    //     }
+
+    //     grafico.update();
+
+    //     // CONSTANTES PARA A ATUALIZAÇÃO DAS KPIS
+    //     const dados = grafico.data.datasets[0].data;
+    //     const labels = grafico.data.labels;
+    //     const maxValor = Math.max(...dados);
+    //     const ultimoValor = dados[dados.length - 1];
+    //     let dataEventoTemp = 0;
+
+    //     // // ATUALIZANDO VALORES DA KPI DE TEMP MÁXIMA
+    //     // if (dados.length > 0) {
+    //     //     const maxAtual = Math.max(...dados);
+    //     //     kpiMax.innerText = maxAtual.toFixed(0) + " °C";
+    //     //     if (ultimoMax == 0) {
+    //     //         ultimoMax = maxAtual;
+    //     //     }
+    //     //     if (maxAtual > ultimoMax) {
+    //     //         ultimoMax = maxAtual;
+    //     //     }
+    //     // }
+
+    //     // // ATUALIZANDO O VALOR DA KPI DE ALERTAS
+    //     // if (novoValor >= 4 && !alertaTemp) {
+    //     //     alertaTemp = true;
+    //     //     totalAlertas++;
+    //     //     kpiAlertas.innerText = totalAlertas;
+    //     // }
+
+    //     // if (novoValor < 4 && alertaTemp) {
+    //     //     alertaTemp = false;
+    //     //     totalAlertas--;
+    //     //     kpiAlertas.innerText = totalAlertas;
+    //     // }
+
+    //     // // ATUALIZANDO O SUBTITULO DA KPI DE ALERTAS
+    //     // let texto = "";
+    //     // let temAlerta = false;
+
+    //     // ESTRUTURA DE REPETIÇÃO PARA ACHAR A OCORRÊNCIA
+    //     for (let i = dados.length - 1; i >= 0; i--) {
+    //         if (dados[i] >= 4) {
+    //             dataEventoTemp = labels[i];
+    //             break;
+    //         }
+    //     }
+
+    //     // // ATUALIZANDO KPI-CHANGE TEMPERATURA
+    //     // if (alertaTemp) {
+    //     //     texto += "Sensor 1 - Temperatura";
+    //     //     temAlerta = true;
+    //     // }
+    //     // if (dataEventoTemp != 0) {
+    //     //     kpiChange.innerText = `${dataEventoTemp}`;
+    //     // }
+
+    //     // // ATUALIZANDO KPI-CHANGE UMIDADE
+    //     // if (alertaUmidade) {
+    //     //     if (temAlerta) {
+    //     //         texto += " | ";
+    //     //         texto += "Sensor 1 - Umidade";
+    //     //         temAlerta = true;
+    //     //     }
+    //     // }
+
+    //     // ATUALIZANDO O TEXTO
+    //     if (!temAlerta) {
+    //         kpiChangeAlertas.innerText = "Nenhum Sensor";
+    //         kpiChangeAlertas.style.color = "#888";
+    //     } else {
+    //         kpiChangeAlertas.innerText = texto;
+    //         kpiChangeAlertas.style.color = "red";
+    //     }
+    // }, 2000);
+
+    // GRAFICO 2 - UMIDADE
+    const grafico2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['05/05', '06/05', '07/05', '08/05', '09/05', '10/05', '11/05', '12/05', '13/05', '14/05'],
+            datasets: [
+                {
+                    label: 'Máxima',
+                    data: ['85', '85', '85', '85', '85', '85', '85', '85', '85', '85'],
+                    backgroundColor: '#535353'
+                },
+                {
+                    label: 'Umidade Mediana',
+                    data: [],
+                    backgroundColor: 'rgba(79, 172, 254)',
+                },
+                {
+                    label: 'Mínima',
+                    data: ['70', '70', '70', '70', '70', '70', '70', '70', '70', '70'],
+                    backgroundColor: '#888'
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 50,
+                    max: 100
+                }
+            },
+            animation: {
+                duration: 500,
+                easing: 'easeInOutCubic'
+            }
+        }
+    });
+
+    // // CONFIGURAÇÃO DE ATUALIZAÇÃO DO GRAFICO 2
+    // setInterval(() => {
+    //     const novoValor2 = Number((Math.random() * (90 - 65) + 65).toFixed());
+
+    //     grafico2.data.datasets[1].data.push(novoValor2);
+
+    //     // SHIFT DO GRÁFICO
+    //     if (grafico2.data.datasets[1].data.length > 10) {
+    //         grafico2.data.datasets[1].data.shift();
+    //     }
+    //     // VARIAÇÃO QUE ALTERA A COR DA LINHA CASO TENHA ULTRAPASSADO O MÁXIMO
+    //     if (novoValor2 < 70 || novoValor2 > 85) {
+    //         grafico2.data.datasets[1].backgroundColor = '#ff4d4f';
+    //     } else {
+    //         grafico2.data.datasets[1].backgroundColor = '#4facfe';
+    //     }
+
+    //     grafico2.update();
+
+    //     // CONSTANTES PARA A ATUALIZAÇÃO DAS KPIS
+    //     const dados2 = grafico2.data.datasets[1].data;
+    //     const labels2 = grafico2.data.labels;
+    //     const maxValor2 = Math.max(...dados2);
+    //     const ultimoValor2 = dados2[dados2.length - 1];
+    //     let dataEventoUmi = 0;
+
+    //     // // ATUALIZANDO VALORES DA KPI DE UMIDADE MÁXIMA
+    //     // if (dados2.length > 0) {
+    //     //     const maxAtual2 = Math.max(...dados2);
+    //     //     kpiMax2.innerText = maxAtual2.toFixed(0) + " %";
+    //     //     if (ultimoMax2 === 0) {
+    //     //         ultimoMax2 = maxAtual2;
+    //     //     }
+    //     //     if (maxAtual2 > ultimoMax2) {
+    //     //         ultimoMax2 = maxAtual2;
+    //     //     }
+    //     // }
+
+    //     // // ATUALIZANDO O VALOR DA KPI DE ALERTAS
+    //     // if ((novoValor2 < 70 || novoValor2 > 85) && !alertaUmidade) {
+    //     //     alertaUmidade = true;
+    //     //     totalAlertas++;
+    //     //     kpiAlertas.innerText = totalAlertas;
+    //     // }
+
+    //     // if ((novoValor2 >= 70 && novoValor2 <= 85) && alertaUmidade) {
+    //     //     alertaUmidade = false;
+    //     //     totalAlertas--;
+    //     //     kpiAlertas.innerText = totalAlertas;
+    //     // }
+
+    //     // ESTRUTURA DE REPETIÇÃO PARA ACHAR A OCORRÊNCIA
+    //     for (let i = dados2.length - 1; i >= 0; i--) {
+    //         if (dados2[i] >= 4) {
+    //             dataEventoUmi = labels2[i];
+    //             break;
+    //         }
+    //     }
+
+    //     // // ATUALIZANDO O SUBTITULO DA KPI DE ALERTAS
+    //     // let texto = "";
+    //     // let temAlerta = false;
+
+    //     // // ATUALIZANDO KPI-CHANGE TEMPERATURA
+    //     // if (alertaTemp) {
+    //     //     texto += "Sensor 1 - Temperatura";
+    //     //     temAlerta = true;
+    //     // }
+
+    //     // // ATUALIZANDO KPI-CHANGE UMIDADE
+    //     // if (alertaUmidade) {
+    //     //     if (temAlerta) texto += " | ";
+    //     //     texto += "Sensor 1 - Umidade";
+    //     //     temAlerta = true;
+    //     //     if (dataEventoUmi != 0) {
+    //     //         kpiChange2.innerText = `${dataEventoUmi}`;
+    //     //     }
+    //     // }
+
+    //     // // ATUALIZANDO O TEXTO
+    //     // if (!temAlerta) {
+    //     //     kpiChangeAlertas.innerText = "Nenhum Sensor";
+    //     //     kpiChangeAlertas.style.color = "#888";
+    //     // } else {
+    //     //     kpiChangeAlertas.innerText = texto;
+    //     //     kpiChangeAlertas.style.color = "red";
+    //     // }
+    // }, 2000);
+
+    // GRAFICO 3 - TEMPERATURA
+    const grafico3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: ['05/05: 12:00', '05/05: 13:00', '05/05: 14:00', '05/05: 15:00', '05/05: 16:00', '05/05: 17:00', '05/05: 18:00', '05/05: 19:00', '05/05: 20:00', '05/05: 21:00'],
+            datasets: [{
+                label: '  Temperatura Atual',
+                data: [],
+                borderColor: '#4facfe',
+                backgroundColor: 'rgba(79, 172, 254, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#4facfe',
+                pointBorderWidth: 4,
+                pointBorderColor: '#4facfe'
+            },
+            {
+                label: 'Máxima',
+                data: ['4', '4', '4', '4', '4', '4', '4', '4', '4', '4'],
+                borderColor: 'red',
+                borderWidth: 2,
+                pointRadius: 0
+            },
+            {
+                label: 'Mínima',
+                data: ['-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4', '-4'],
+                borderColor: 'blue',
+                borderWidth: 2,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: -8,
+                    max: 8
+                }
+            },
+            animation: {
+                duration: 500,
+                easing: 'easeInOutCubic'
+            }
+        }
+    });
+
+    // CONFIGURAÇÃO DE ATUALIZAÇÃO DO GRAFICO 3
+    setInterval(() => {
+        const novoValor = Number((Math.random() * (6 - (-6)) + (-6)).toFixed());
+
+        grafico3.data.datasets[0].data.push(novoValor);
+
+        // SHIFT DO GRÁFICO
+        if (grafico3.data.datasets[0].data.length > 10) {
+            grafico3.data.datasets[0].data.shift();
+        }
+        // VARIAÇÃO QUE ALTERA A COR DA LINHA CASO TENHA ULTRAPASSADO O MÁXIMO
+        if (novoValor > 4) {
+            grafico3.data.datasets[0].borderColor = '#ff4d4f';
+            grafico3.data.datasets[0].pointBorderColor = '#ff4d4f';
+        } else {
+            grafico3.data.datasets[0].borderColor = '#4facfe';
+            grafico3.data.datasets[0].pointBorderColor = '#4facfe';
+        }
+
+        grafico3.update();
+
+    }, 1100);
+
+    // GRAFICO 4 - UMIDADE
+    const grafico4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['05/05: 12:00', '05/05: 13:00', '05/05: 14:00', '05/05: 15:00', '05/05: 16:00', '05/05: 17:00', '05/05: 18:00', '05/05: 19:00', '05/05: 20:00', '05/05: 21:00'],
+            datasets: [
+                {
+                    label: 'Máxima',
+                    data: ['85', '85', '85', '85', '85', '85', '85', '85', '85', '85'],
+                    backgroundColor: '#535353'
+                },
+                {
+                    label: 'Umidade Atual',
+                    data: [],
+                    backgroundColor: 'rgba(79, 172, 254)',
+                },
+                {
+                    label: 'Mínima',
+                    data: ['70', '70', '70', '70', '70', '70', '70', '70', '70', '70'],
+                    backgroundColor: '#888'
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 50,
+                    max: 100
+                }
+            },
+            animation: {
+                duration: 500,
+                easing: 'easeInOutCubic'
+            }
+        }
+    });
+
+    // CONFIGURAÇÃO DE ATUALIZAÇÃO DO GRAFICO 4
+    setInterval(() => {
+        const novoValor4 = Number((Math.random() * (90 - 65) + 65).toFixed());
+
+        grafico4.data.datasets[1].data.push(novoValor4);
+
+        // SHIFT DO GRÁFICO
+        if (grafico4.data.datasets[1].data.length > 10) {
+            grafico4.data.datasets[1].data.shift();
+        }
+        // VARIAÇÃO QUE ALTERA A COR DA LINHA CASO TENHA ULTRAPASSADO O MÁXIMO
+        if (novoValor4 < 70 || novoValor4 > 85) {
+            grafico4.data.datasets[1].backgroundColor = '#ff4d4f';
+        } else {
+            grafico4.data.datasets[1].backgroundColor = '#4facfe';
+        }
+
+        grafico4.update();
+    }, 1100);
+
+    function ativarButtons() {
+        let btn_graf = document.getElementById("btn-ativo");
+        let btn_menu = document.getElementById("sensor_temp");
+
+        btn_graf.focus;
+        btn_menu.focus;
+    }
+
+</script>
